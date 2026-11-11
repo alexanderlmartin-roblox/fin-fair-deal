@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Fin Fair Deal</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single centred content column; panels stack to one column on phones. */
+:root {
+  --bg: #f4f6f8;
+  --panel: #ffffff;
+  --panel-2: #eaeef2;
+  --line: #d6dde4;
+  --fg: #16212b;
+  --fg-2: #4b5a68;
+  --fg-3: #7a8795;
+  --accent: #1b6b5a;
+  --accent-ink: #ffffff;
+  --accent-soft: #dcefe9;
+  --rail: #16212b;
+  --rail-fg: #e9eef3;
+  --rail-fg-2: #94a3b2;
+  --rail-active: #243242;
+  --warn-soft: #fbeedd;
+  --warn: #9a5b12;
+  --s1: #2a78d6;  /* income contribution */
+  --s2: #eb6834;  /* asset contribution */
+  --s3: #b7c2cc;  /* HSE pays (neutral) */
+  --dot: #2a78d6;
+  --font-display: "Manrope", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f161d; --panel: #171f28; --panel-2: #1f2932; --line: #2b3741;
+    --fg: #e8edf2; --fg-2: #b3bfca; --fg-3: #7d8b98;
+    --accent: #4fb89c; --accent-ink: #0b1a15; --accent-soft: #173229;
+    --rail: #0a1016; --rail-fg: #e9eef3; --rail-fg-2: #8290a0; --rail-active: #1a2531;
+    --warn-soft: #3a2a12; --warn: #e5b26b;
+    --s1: #3987e5; --s2: #d95926; --s3: #46545f; --dot: #3987e5;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f161d; --panel: #171f28; --panel-2: #1f2932; --line: #2b3741;
+  --fg: #e8edf2; --fg-2: #b3bfca; --fg-3: #7d8b98;
+  --accent: #4fb89c; --accent-ink: #0b1a15; --accent-soft: #173229;
+  --rail: #0a1016; --rail-fg: #e9eef3; --rail-fg-2: #8290a0; --rail-active: #1a2531;
+  --warn-soft: #3a2a12; --warn: #e5b26b;
+  --s1: #3987e5; --s2: #d95926; --s3: #46545f; --dot: #3987e5;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.55 var(--font-body); }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+h1 { font-size: 1.9rem; font-weight: 800; line-height: 1.15; }
+h2 { font-size: 1.25rem; font-weight: 700; }
+h3 { font-size: 1rem; font-weight: 700; }
+p { margin: 0; max-width: 68ch; }
+a { color: var(--accent); }
+.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.eyebrow { font-family: var(--font-display); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-3); }
+
+/* Content column */
+.main { min-height: 100%; padding-block: 36px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1040px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+.page-head { display: flex; flex-direction: column; gap: 10px; }
+.lede { font-size: 1.05rem; color: var(--fg-2); max-width: 70ch; }
+
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 20px; }
+.panel-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; margin-bottom: 14px; }
+.panel-head p { color: var(--fg-2); font-size: 0.9rem; }
+
+.keyfacts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.keyfact { background: var(--panel); padding: 14px 16px; display: flex; flex-direction: column; gap: 2px; }
+.keyfact b { font: 700 1.5rem/1.1 var(--font-display); letter-spacing: -0.02em; }
+.keyfact span { font-size: 0.82rem; color: var(--fg-2); }
+
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.step { background: var(--panel-2); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+.step .eyebrow { color: var(--accent); }
+.step p { font-size: 0.9rem; color: var(--fg-2); }
+
+/* Calculator */
+.calc { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 20px; align-items: start; }
+.form { display: flex; flex-direction: column; gap: 14px; }
+.field { display: flex; flex-direction: column; gap: 4px; }
+.field label { font-size: 0.82rem; font-weight: 600; color: var(--fg-2); }
+.field small { font-size: 0.75rem; color: var(--fg-3); }
+.field .in { display: flex; align-items: center; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); overflow: hidden; }
+.field .in:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.field .in span { padding: 0 10px; color: var(--fg-3); font-size: 0.85rem; border-right: 1px solid var(--line); background: var(--panel-2); align-self: stretch; display: flex; align-items: center; }
+.field input[type=number], .field select { width: 100%; min-width: 0; border: 0; background: transparent; color: var(--fg); font: 500 0.98rem var(--font-mono); padding: 8px 10px; outline: none; }
+.field select { font-family: var(--font-body); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { border: 0; background: var(--panel); color: var(--fg-2); padding: 8px 14px; font: 600 0.85rem var(--font-body); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 0.88rem; color: var(--fg-2); }
+.check input { margin-top: 3px; accent-color: var(--accent); }
+.fieldgroup { display: flex; flex-direction: column; gap: 10px; padding-top: 10px; border-top: 1px solid var(--line); }
+.fieldgroup .eyebrow { margin-bottom: 2px; }
+
+.result { display: flex; flex-direction: column; gap: 16px; }
+.hero-num { display: flex; flex-direction: column; gap: 2px; }
+.hero-num b { font: 800 2.6rem/1 var(--font-display); letter-spacing: -0.03em; }
+.hero-num span { color: var(--fg-2); font-size: 0.9rem; }
+.split { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; }
+.split .tile { background: var(--panel-2); border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; }
+.tile b { font: 700 1.15rem/1.1 var(--font-display); }
+.tile span { font-size: 0.78rem; color: var(--fg-2); }
+.tile .sw { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+.bar { display: flex; height: 22px; border-radius: 6px; overflow: hidden; gap: 2px; background: var(--panel-2); }
+.bar div { height: 100%; min-width: 0; transition: flex-basis 0.25s ease; }
+@media (prefers-reduced-motion: reduce) { .bar div { transition: none; } }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 0.8rem; color: var(--fg-2); }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--fg-3); }
+td.n, th.n { text-align: right; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+tr.total td { font-weight: 600; border-top: 2px solid var(--line); }
+.tablewrap { overflow-x: auto; }
+
+.note { background: var(--warn-soft); color: var(--fg); border-left: 3px solid var(--warn); border-radius: 8px; padding: 10px 14px; font-size: 0.88rem; }
+.note b { color: var(--warn); }
+.ok { background: var(--accent-soft); border-left-color: var(--accent); }
+.ok b { color: var(--accent); }
+
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 20px; }
+.rules { display: flex; flex-direction: column; gap: 14px; }
+.rule { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 12px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.rule:last-child { border-bottom: 0; padding-bottom: 0; }
+.rule .k { font: 700 0.82rem var(--font-display); color: var(--accent); }
+.rule p { font-size: 0.9rem; color: var(--fg-2); }
+.rule p + p { margin-top: 6px; }
+
+ul.plain { margin: 0; padding-left: 18px; color: var(--fg-2); font-size: 0.9rem; display: flex; flex-direction: column; gap: 6px; }
+ul.plain li::marker { color: var(--accent); }
+.checklist { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.checklist li { display: flex; gap: 10px; align-items: flex-start; font-size: 0.92rem; }
+.checklist input { margin-top: 4px; accent-color: var(--accent); }
+.checklist small { display: block; color: var(--fg-3); font-size: 0.78rem; }
+
+/* County dot plot */
+.chart { position: relative; }
+.chart svg { width: 100%; height: auto; display: block; font-family: var(--font-body); }
+.chart .lbl { fill: var(--fg-2); font-size: 11px; }
+.chart .val { fill: var(--fg); font-size: 11px; font-family: var(--font-mono); }
+.chart .tick { fill: var(--fg-3); font-size: 10px; }
+.chart .grid { stroke: var(--line); stroke-width: 1; }
+.chart .ref { stroke: var(--fg-3); stroke-width: 1; stroke-dasharray: 3 3; }
+.chart .reflbl { fill: var(--fg-3); font-size: 10px; }
+.chart .dot { fill: var(--dot); stroke: var(--panel); stroke-width: 2; }
+.chart .dot.hi { fill: var(--s2); }
+.chart .row:hover .dot { r: 7; }
+.chart .hit { fill: transparent; }
+.tip { position: absolute; pointer-events: none; background: var(--fg); color: var(--bg); font-size: 0.78rem; padding: 6px 9px; border-radius: 6px; white-space: nowrap; transform: translate(-50%, calc(-100% - 10px)); opacity: 0; transition: opacity 0.1s; }
+.tip.show { opacity: 1; }
+
+.sources { font-size: 0.82rem; color: var(--fg-2); }
+.sources ol { margin: 8px 0 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; }
+.sources a { word-break: break-all; }
+
+
+@media (max-width: 860px) {
+  .calc { grid-template-columns: 1fr; }
+  .rule { grid-template-columns: 1fr; gap: 4px; }
+}
+</style>
+<style>[hidden]{display:none!important} img{max-width:100%}</style>
+</head>
+<body>
+
+
+<main class="main">
+    <div class="wrap">
+
+          <div class="page-head">
+            <div class="eyebrow">Nursing Homes Support Scheme · Ireland</div>
+            <h1>Fin Fair Deal</h1>
+            <p class="lede" style="font-weight:600;color:var(--fg)">What a nursing home would actually cost Dad, Mum and the family.</p>
+            <p class="lede">Fair Deal is the Irish State's Nursing Homes Support Scheme. The HSE sets a fixed price with every approved home, Dad pays a means‑tested weekly contribution, and the HSE pays the balance. His contribution is the same whichever approved home he chooses. The HSE's letter of 4 November 2026 has assessed that contribution. This page works out what it means for Mum's cash flow, the savings and the house.</p>
+          </div>
+
+          <div class="keyfacts" aria-label="Key figures">
+            <div class="keyfact"><b class="num" style="font-family:var(--font-display)">€1,405.84</b><span>Dad's assessed weekly contribution (HSE letter)</span></div>
+            <div class="keyfact"><b class="num" style="font-family:var(--font-display)">€738.77</b><span>a week in cash if the Nursing Home Loan is approved</span></div>
+            <div class="keyfact"><b class="num" style="font-family:var(--font-display)">€594.16</b><span>a week the HSE pays towards a €2,000 home</span></div>
+            <div class="keyfact"><b>3 years</b><span>cap on the house: the €667.07/wk line stops after 36 months</span></div>
+          </div>
+
+          <!-- Dad's assessment -->
+          <div class="panel" id="assessment">
+            <div class="panel-head"><h2>What the HSE letter says</h2><p>Dublin South, Wicklow &amp; Kildare Nursing Homes Support Office, 4 November 2026</p></div>
+            <div class="cols">
+              <div>
+                <div class="tablewrap">
+                  <table>
+                    <thead><tr><th>Weekly contribution line</th><th class="n">Letter</th><th>What it implies</th></tr></thead>
+                    <tbody>
+                      <tr><td>40% of combined weekly income</td><td class="n">723.48</td><td>Combined pensions of €1,808.70/wk, about €7,840 a month</td></tr>
+                      <tr><td>3.75% a year of cash assets above €72,000</td><td class="n">15.29</td><td>Savings assessed at about €93,200 at application date</td></tr>
+                      <tr><td>3.75% a year of the house (3‑year cap)</td><td class="n">667.07</td><td>House assessed at about €925,000</td></tr>
+                      <tr class="total"><td>Assessed total</td><td class="n">1,405.84</td><td>Payable to the home each week; HSE pays the rest of its agreed price</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p style="font-size:0.85rem;color:var(--fg-2);margin-top:10px">The letter is not the loan decision. If the Nursing Home Loan is approved, the €667.07 house line is paid by the HSE and charged against the house instead, so the weekly cash bill falls to €738.77. The house line runs for 36 months at most (11.25% of value for a couple), then stops whether or not the loan is taken.</p>
+              </div>
+              <div class="rules">
+                <div class="rule"><div class="k">Savings</div><p>The letter assessed roughly €93,200 of cash. If the balance is now €70,000, a review can be requested 12 months after the assessment; the cash line would fall to about zero. Worth €15 a week, so not urgent.</p></div>
+                <div class="rule"><div class="k">The €2,000 fee</div><p>Confirm with the home that €2,000 is its agreed Fair Deal (NTPF) price and not a private‑payer rate. Dublin agreed rates on the HSE list top out around €1,508. A home cannot charge a Fair Deal resident a top‑up on the care fee itself.</p></div>
+                <div class="rule"><div class="k">The €450 extras</div><p>€450 a week is far above typical social programme and sundry charges. Ask for an itemised list in writing. If some of it is in effect a top‑up on care, it is not permitted under the scheme and the Nursing Homes Support Office (045 920000) will advise.</p></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Scenario comparison -->
+          <div class="panel" id="scenarios">
+            <div class="panel-head"><h2>Self‑fund, Fair Deal, or Fair Deal with the loan?</h2><p>Monthly household view: Mum and Dad's pensions against the home, the extras and Mum's own outgoings</p></div>
+            <div class="calc">
+              <form class="form" id="scForm" autocomplete="off">
+                <div class="fieldgroup" style="border-top:0;padding-top:0">
+                  <div class="eyebrow">Costs</div>
+                  <div class="field"><label for="scFee">Nursing home fee, per week</label><div class="in"><span>€</span><input type="number" id="scFee" value="2000" step="10" min="0"></div></div>
+                  <div class="field"><label for="scExtras">Extras, per week</label><div class="in"><span>€</span><input type="number" id="scExtras" value="450" step="10" min="0"></div><small>Paid by the family under every option.</small></div>
+                  <div class="field"><label for="scMum">Mum's own outgoings, per month</label><div class="in"><span>€</span><input type="number" id="scMum" value="3000" step="100" min="0"></div></div>
+                </div>
+                <div class="fieldgroup">
+                  <div class="eyebrow">Money coming in</div>
+                  <div class="field"><label for="scPension">Combined pensions, per month</label><div class="in"><span>€</span><input type="number" id="scPension" value="8000" step="100" min="0"></div></div>
+                  <div class="field"><label for="scSavings">Savings today</label><div class="in"><span>€</span><input type="number" id="scSavings" value="70000" step="1000" min="0"></div></div>
+                  <div class="field"><label for="scSib">Contribution per sibling, per month</label>
+                    <div class="seg" role="group" aria-label="Sibling contribution"><button type="button" data-sib="0" aria-pressed="true">€0</button><button type="button" data-sib="1000" aria-pressed="false">€1,000</button><button type="button" data-sib="2000" aria-pressed="false">€2,000</button></div>
+                    <small>Three siblings. €1,000 each adds €3,000 a month to the household.</small></div>
+                </div>
+                <div class="fieldgroup">
+                  <div class="eyebrow">Fair Deal figures (from the letter)</div>
+                  <div class="field"><label for="scFD">Assessed weekly contribution</label><div class="in"><span>€</span><input type="number" id="scFD" value="1405.84" step="0.01" min="0"></div></div>
+                  <div class="field"><label for="scHouseLine">Of which the house line</label><div class="in"><span>€</span><input type="number" id="scHouseLine" value="667.07" step="0.01" min="0"></div><small>Deferred by the loan; stops after 36 months.</small></div>
+                  <div class="field"><label for="scCPI">CPI uplift on the deferred loan, per year</label><div class="in"><input type="number" id="scCPI" value="2" step="0.5" min="0" max="10"><span>%</span></div></div>
+                </div>
+              </form>
+
+              <div class="result" aria-live="polite">
+                <div class="split" id="scMonthly"></div>
+                <div class="tablewrap"><table id="scTable"><thead></thead><tbody></tbody></table></div>
+                <div class="legend" style="font-size:0.78rem"><span><b>Cash from family</b> = shortfall after pensions and sibling money, funded from savings.</span><span><b>Charge on house</b> = deferred loan plus CPI, repaid by the estate.</span></div>
+                <div class="note ok" id="scVerdict"></div>
+                <div class="note" id="scSiblings"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head"><h2>How the scheme works</h2><p>Three steps, all through the local Nursing Homes Support Office</p></div>
+            <div class="steps">
+              <div class="step"><div class="eyebrow">1 · Care needs</div><h3>Does he need long‑term care?</h3><p>A HSE healthcare professional assesses whether nursing home care is the right option. No money is discussed at this stage.</p></div>
+              <div class="step"><div class="eyebrow">2 · Financial assessment</div><h3>What can he contribute?</h3><p>Income and assets are declared. The office works out a weekly contribution using the 80% / 7.5% formula. A couple is assessed on half of combined means.</p></div>
+              <div class="step"><div class="eyebrow">3 · Choose a home</div><h3>Any approved home, same contribution</h3><p>Public, voluntary or private. The HSE pays the home the balance of its agreed price every week. Optional: the Nursing Home Loan defers the home‑based part until after death.</p></div>
+            </div>
+          </div>
+
+          <!-- Calculator -->
+          <div class="panel" id="calculator">
+            <div class="panel-head"><h2>Contribution calculator</h2><p>Pre‑filled with the figures implied by the HSE letter; it reproduces the €1,405.84. Change anything to test a scenario.</p></div>
+            <div class="calc">
+              <form class="form" id="calcForm" autocomplete="off">
+                <div class="field">
+                  <label>Assessed as</label>
+                  <div class="seg" role="group" aria-label="Single or couple">
+                    <button type="button" id="btnSingle" aria-pressed="false" data-status="single">Single</button>
+                    <button type="button" id="btnCouple" aria-pressed="true" data-status="couple">Couple</button>
+                  </div>
+                  <small>Couple = married, or living together as partners for 3+ years. Both partners' means are combined and halved.</small>
+                </div>
+
+                <div class="fieldgroup">
+                  <div class="eyebrow">Income (weekly)</div>
+                  <div class="field"><label for="inPension">State pension</label><div class="in"><span>€</span><input type="number" id="inPension" value="1808.70" step="0.10" min="0"></div><small>Combined weekly pensions implied by the letter. Full State Pension (Contributory) alone is €299.30/week from January 2026.</small></div>
+                  <div class="field"><label for="inOther">Other income</label><div class="in"><span>€</span><input type="number" id="inOther" value="0" step="1" min="0"></div><small>Occupational or private pension, rent from property other than the home, interest, dividends.</small></div>
+                  <div class="field"><label for="inDeduct">Allowable deductions</label><div class="in"><span>€</span><input type="number" id="inDeduct" value="0" step="1" min="0"></div><small>Income tax, USC, PRSI, health expenses, property tax, home loan interest.</small></div>
+                </div>
+
+                <div class="fieldgroup">
+                  <div class="eyebrow">Assets</div>
+                  <div class="field"><label for="inCash">Savings, shares, ARF, money owed to him</label><div class="in"><span>€</span><input type="number" id="inCash" value="93200" step="1000" min="0"></div><small>Cash assets as assessed in the letter. The €36,000 (€72,000 couple) disregard comes off these first.</small></div>
+                  <div class="field"><label for="inHome">Family home value</label><div class="in"><span>€</span><input type="number" id="inHome" value="925000" step="5000" min="0"></div><small>Charged for a maximum of 3 years, then dropped automatically.</small></div>
+                  <div class="field"><label for="inProp">Other property or land</label><div class="in"><span>€</span><input type="number" id="inProp" value="0" step="5000" min="0"></div><small>Charged every year with no cap, unless it is a farm or business that qualifies for the cap.</small></div>
+                  <label class="check"><input type="checkbox" id="inInCare3"><span>He has already been in nursing home care for 3+ years (home no longer counted)</span></label>
+                </div>
+
+                <div class="fieldgroup">
+                  <div class="eyebrow">Nursing home</div>
+                  <div class="field"><label for="inPrice">Weekly price of the home</label>
+                    <div class="in"><select id="inPricePreset"><option value="2000">Dad's home (€2,000)</option><option value="1306">National average, private (€1,306)</option><option value="1411">Dublin average (€1,411)</option><option value="1508">Top of private range (€1,508)</option><option value="1955">Public HSE unit (€1,955)</option><option value="custom">Custom</option></select></div>
+                    <div class="in" style="margin-top:6px"><span>€</span><input type="number" id="inPrice" value="2000" step="1" min="0"></div>
+                    <small>HSE/NTPF agreed maximum weekly prices, July 2026 list.</small></div>
+                  <label class="check"><input type="checkbox" id="inLoan"><span>Take the Nursing Home Loan (defer the home‑based part of the contribution until after death)</span></label>
+                  <div class="field"><label for="inYears">Years in care to project</label><div class="in"><input type="number" id="inYears" value="5" step="1" min="1" max="15"></div><small>Average length of stay is commonly cited as 2 to 3 years, but plan for longer.</small></div>
+                </div>
+              </form>
+
+              <div class="result" aria-live="polite">
+                <div class="hero-num"><b class="num" id="outWeekly" style="font-family:var(--font-display)">€0</b><span>Dad's weekly contribution in years 1 to 3 (<span id="outAnnual">€0</span> a year)</span></div>
+                <div class="bar" id="outBar" aria-hidden="true"><div style="background:var(--s1);flex-basis:0"></div><div style="background:var(--s2);flex-basis:0"></div><div style="background:var(--s3);flex-basis:100%"></div></div>
+                <div class="legend"><span><i style="background:var(--s1)"></i>Income part</span><span><i style="background:var(--s2)"></i>Asset part</span><span><i style="background:var(--s3)"></i>HSE pays</span></div>
+                <div class="split">
+                  <div class="tile"><b class="num" id="outIncome">€0</b><span><i class="sw" style="background:var(--s1)"></i>From income /wk</span></div>
+                  <div class="tile"><b class="num" id="outAssets">€0</b><span><i class="sw" style="background:var(--s2)"></i>From assets /wk</span></div>
+                  <div class="tile"><b class="num" id="outHSE">€0</b><span><i class="sw" style="background:var(--s3)"></i>HSE pays /wk</span></div>
+                  <div class="tile"><b class="num" id="outYear4">€0</b><span>His weekly cost from year 4</span></div>
+                </div>
+                <div class="note ok" id="outKeeps"><b>What he keeps:</b> <span id="outKeepsText"></span></div>
+                <div class="tablewrap">
+                  <table id="outTable">
+                    <thead><tr><th>Year</th><th class="n">Paid from income</th><th class="n">Paid from assets now</th><th class="n">Deferred via loan</th><th class="n">HSE pays</th><th class="n">Cumulative, Dad</th></tr></thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+                <div class="note" id="outPrivate"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cols">
+            <div class="panel">
+              <div class="panel-head"><h2>The rules that change the number</h2></div>
+              <div class="rules">
+                <div class="rule"><div class="k">Disregard</div><p>The first €36,000 of assets (€72,000 for a couple) is ignored. It is taken off cash assets first, then off property. With €36,000 or less in savings, the whole disregard lands on the house.</p></div>
+                <div class="rule"><div class="k">3‑year cap</div><p>The family home, the proceeds if it is sold, and a qualifying farm or business are charged for 3 years at most: 22.5% of value for a single person, 11.25% for a couple. For the home this is automatic. Time already spent in care counts.</p><p>A farm or business only gets the cap if a family successor (18+, a relative) commits to running it for 6 years and it was actively run for 3 of the last 5 years. Apply on part 6 of the form.</p></div>
+                <div class="rule"><div class="k">5‑year look‑back</div><p>Anything given away or transferred in the 5 years before the first application, or at any time after it, is assessed as if he still owned it. Gifting the house now does not take it out of the calculation.</p></div>
+                <div class="rule"><div class="k">Couples</div><p>Married couples and partners of 3+ years are assessed on combined means and pay half the rates: 40% of combined income, 3.75% of combined assets. The spouse at home is not asked to sell up.</p></div>
+                <div class="rule"><div class="k">Renting the home</div><p>If the house is rented out while he is in care, all of that rent can be exempted from the assessment on application (Principal Private Residence Rental Income form, with the RTB registration letter, lease and Revenue notice of assessment). Rent from any other property is assessed at 80%.</p></div>
+                <div class="rule"><div class="k">Reviews</div><p>Either side can ask for a financial review 12 months after the last assessment. If savings fall as he pays, a review lowers the contribution. Any asset sale, including the home, must be reported within 10 working days.</p></div>
+                <div class="rule"><div class="k">Ceiling</div><p>The contribution can never exceed the agreed price of the home. Above that, he is simply self‑funding and Fair Deal pays nothing.</p></div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-head"><h2>Nursing Home Loan</h2><p>Also called Ancillary State Support</p></div>
+              <div class="rules">
+                <div class="rule"><div class="k">What it is</div><p>Optional. The HSE pays the home‑based (and other property‑based) part of the contribution on his behalf each week and registers a charge on the property. Nothing has to be sold while he is alive. Apply on part 5 of the form, with Fair Deal or later.</p></div>
+                <div class="rule"><div class="k">Repayment</div><p>Repaid to the Revenue Commissioners by his estate. For deaths on or after 5 September 2026 the estate has 18 months; interest runs from the date of death if it is later than that. Deaths before that date had 12 months.</p><p>If the house is sold or transferred while he is still in care, repayment is due within 6 months of the sale.</p></div>
+                <div class="rule"><div class="k">Indexation</div><p>The amount owed is uplifted by Consumer Price Index inflation from when each payment was made. No other interest applies if repaid on time.</p></div>
+                <div class="rule"><div class="k">Deferral</div><p>Repayment can be deferred while a spouse or partner still lives in the house. A "connected person" can also apply: a child under 21, a child or sibling with assets under €36,000, a relative on a disability or non‑contributory pension, or a carer who looked after him before he went into care. The house must have been his only residence for 3+ years.</p></div>
+                <div class="rule"><div class="k">Who should take it</div><p>Anyone who is asset‑rich and cash‑poor. It converts a weekly bill into a one‑off charge on the estate capped at 22.5% of the home's value. If there is enough cash to pay the asset part comfortably, skipping it keeps things simpler and avoids the CPI uplift.</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head"><h2>What private nursing homes charge, by county</h2><p>HSE/NTPF agreed maximum weekly prices for private and voluntary homes, July 2026 list (411 homes)</p></div>
+            <div class="chart" id="countyChart"></div>
+            <p style="font-size:0.85rem;color:var(--fg-2);margin-top:12px">Public HSE units average about €1,955 a week on a different costing basis. Under Fair Deal the price of the home does not change Dad's contribution; it changes how much the HSE tops up. The price matters only if he self‑funds, or for the extras below.</p>
+          </div>
+
+          <div class="cols">
+            <div class="panel">
+              <div class="panel-head"><h2>Not covered by Fair Deal</h2></div>
+              <ul class="plain">
+                <li>Social programme or activities charges, typically billed weekly by private homes.</li>
+                <li>Hairdressing, chiropody, newspapers, outings and personal items.</li>
+                <li>Some therapies (physiotherapy, occupational therapy) in private homes.</li>
+                <li>Short‑term respite or convalescent stays. Fair Deal is for long‑term care only.</li>
+                <li>Prescription charges and GP visits, though a medical card continues to apply.</li>
+              </ul>
+              <p style="font-size:0.85rem;color:var(--fg-2);margin-top:12px">Ask each shortlisted home for its full list of additional charges in writing before signing the contract. Budget a few hundred euro a month on top of the Fair Deal contribution.</p>
+            </div>
+            <div class="panel">
+              <div class="panel-head"><h2>Information to gather about Dad</h2></div>
+              <ul class="checklist">
+                <li><input type="checkbox" id="c1"><label for="c1">Marital status and whether a spouse or partner lives in the house<small>Decides single vs couple assessment and loan deferral</small></label></li>
+                <li><input type="checkbox" id="c2"><label for="c2">Weekly State pension and any occupational pension<small>Pension statements or Revenue notice of assessment</small></label></li>
+                <li><input type="checkbox" id="c3"><label for="c3">Bank, credit union, post office and investment balances<small>Statements as at the application date</small></label></li>
+                <li><input type="checkbox" id="c4"><label for="c4">Realistic market value of the house<small>An estate agent letter is usually enough</small></label></li>
+                <li><input type="checkbox" id="c5"><label for="c5">Any other property, land, farm or business interests</label></li>
+                <li><input type="checkbox" id="c6"><label for="c6">Anything transferred or gifted in the last 5 years<small>Including money to children and property transfers</small></label></li>
+                <li><input type="checkbox" id="c7"><label for="c7">Who could be a care representative if capacity is an issue<small>Enduring power of attorney, if one exists</small></label></li>
+                <li><input type="checkbox" id="c8"><label for="c8">Whether the house would be rented out or left empty<small>Rent can be exempted; an empty house still carries insurance and tax</small></label></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="panel sources">
+            <h3>Sources</h3>
+            <ol>
+              <li>HSE, Fair Deal financial assessment (rates, disregard, income and asset definitions, deductions, worked examples): <a href="https://www2.hse.ie/services/schemes-allowances/fair-deal-scheme/financial-assessment/" target="_blank" rel="noopener">www2.hse.ie/.../financial-assessment/</a></li>
+              <li>HSE, the 3‑year cap (home, farm and business conditions): <a href="https://www2.hse.ie/services/schemes-allowances/fair-deal-scheme/3-year-cap/" target="_blank" rel="noopener">www2.hse.ie/.../3-year-cap/</a></li>
+              <li>HSE, Nursing Home Loan (repayment to Revenue, 18‑month window, CPI, deferral): <a href="https://www2.hse.ie/services/schemes-allowances/fair-deal-scheme/nursing-home-loan/" target="_blank" rel="noopener">www2.hse.ie/.../nursing-home-loan/</a></li>
+              <li>FairPath compilation of the HSE maximum price list, 3 July 2026 (county averages): <a href="https://fairpath.ie/nursing-home-prices-ireland" target="_blank" rel="noopener">fairpath.ie/nursing-home-prices-ireland</a></li>
+              <li>BDO analysis of NTPF agreed private nursing home rates, June 2026: <a href="https://www.bdo.ie/getmedia/788f32d8-d73c-41b5-a9a4-5c537f0586b4/Analysis-of-NTPF-Agreed-Private-Nursing-Home-FDR-Change-in-June-2026_1.pdf" target="_blank" rel="noopener">bdo.ie (PDF)</a></li>
+              <li>The Care Panel, nursing home costs Ireland, October 2026 list (extras not covered): <a href="https://thecarepanel.co.uk/nursing-home-costs-ireland/" target="_blank" rel="noopener">thecarepanel.co.uk/nursing-home-costs-ireland/</a></li>
+            </ol>
+            <p style="margin-top:10px">The calculator reproduces the HSE's two published worked examples exactly (single applicant €428.78/week; couple €484.42/week). It is a planning tool, not a decision from the Nursing Homes Support Office.</p>
+          </div>
+    </div>
+  </main>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---------- Fair Deal calculator ---------- */
+  var RATE_INCOME = { single: 0.80, couple: 0.40 };
+  var RATE_ASSET = { single: 0.075, couple: 0.0375 };
+  var DISREGARD = { single: 36000, couple: 72000 };
+
+  // Pure function: one year's figures. Exposed on window for checking.
+  function assess(p) {
+    var status = p.couple ? 'couple' : 'single';
+    var income = Math.max(0, (p.pension || 0) + (p.other || 0) - (p.deduct || 0));
+    var incomePart = income * RATE_INCOME[status];
+
+    var disregard = DISREGARD[status];
+    var cash = Math.max(0, p.cash || 0);
+    var cashLeft = Math.max(0, cash - disregard);
+    var remDisregard = Math.max(0, disregard - cash);
+
+    var homeCounted = (p.homeCounted !== false) ? Math.max(0, p.home || 0) : 0;
+    var prop = Math.max(0, p.prop || 0);
+    var nonCash = Math.max(0, homeCounted + prop - remDisregard);
+
+    var cashPart = cashLeft * RATE_ASSET[status] / 52;
+    var nonCashPart = nonCash * RATE_ASSET[status] / 52;
+    // How much of the non-cash part is attributable to the home (deferrable by loan) vs other property.
+    var homeShare = (homeCounted + prop) > 0 ? homeCounted / (homeCounted + prop) : 0;
+    var homePart = nonCashPart * homeShare;
+    var propPart = nonCashPart - homePart;
+
+    var raw = incomePart + cashPart + nonCashPart;
+    var price = Math.max(0, p.price || 0);
+    var capped = Math.min(raw, price);
+    var scale = raw > 0 ? capped / raw : 0;
+
+    return {
+      incomePart: incomePart * scale,
+      cashPart: cashPart * scale,
+      homePart: homePart * scale,
+      propPart: propPart * scale,
+      assetPart: (cashPart + nonCashPart) * scale,
+      total: capped,
+      hse: Math.max(0, price - capped),
+      selfFunding: raw >= price && price > 0,
+      incomeAfter: income - incomePart * scale
+    };
+  }
+  window.fairDealAssess = assess;
+
+  var fmt = function (n, d) {
+    d = (d === undefined) ? 0 : d;
+    return '€' + n.toLocaleString('en-IE', { minimumFractionDigits: d, maximumFractionDigits: d });
+  };
+  var $ = function (id) { return document.getElementById(id); };
+
+  var state = { couple: true };
+  var btnSingle = $('btnSingle'), btnCouple = $('btnCouple');
+  btnSingle.addEventListener('click', function () { state.couple = false; btnSingle.setAttribute('aria-pressed', 'true'); btnCouple.setAttribute('aria-pressed', 'false'); update(); });
+  btnCouple.addEventListener('click', function () { state.couple = true; btnSingle.setAttribute('aria-pressed', 'false'); btnCouple.setAttribute('aria-pressed', 'true'); update(); });
+
+  $('inPricePreset').addEventListener('change', function () {
+    if (this.value !== 'custom') { $('inPrice').value = this.value; }
+    update();
+  });
+  $('inPrice').addEventListener('input', function () {
+    var v = String(this.value);
+    var opts = Array.prototype.slice.call($('inPricePreset').options);
+    var match = opts.some(function (o) { return o.value === v; });
+    if (!match) $('inPricePreset').value = 'custom';
+  });
+
+  var inputs = ['inPension', 'inOther', 'inDeduct', 'inCash', 'inHome', 'inProp', 'inPrice', 'inYears', 'inInCare3', 'inLoan'];
+  inputs.forEach(function (id) { $(id).addEventListener('input', update); $(id).addEventListener('change', update); });
+
+  function num(id) { var v = parseFloat($(id).value); return isNaN(v) ? 0 : v; }
+
+  function update() {
+    var base = {
+      couple: state.couple,
+      pension: num('inPension'), other: num('inOther'), deduct: num('inDeduct'),
+      cash: num('inCash'), home: num('inHome'), prop: num('inProp'),
+      price: num('inPrice')
+    };
+    var alreadyCapped = $('inInCare3').checked;
+    var loan = $('inLoan').checked;
+    var years = Math.min(15, Math.max(1, Math.round(num('inYears'))));
+
+    var y1 = assess(Object.assign({}, base, { homeCounted: !alreadyCapped }));
+    var y4 = assess(Object.assign({}, base, { homeCounted: false }));
+    var first = alreadyCapped ? y4 : y1;
+
+    $('outWeekly').textContent = fmt(first.total, 2);
+    $('outAnnual').textContent = fmt(first.total * 52);
+    $('outIncome').textContent = fmt(first.incomePart, 2);
+    $('outAssets').textContent = fmt(first.assetPart, 2);
+    $('outHSE').textContent = fmt(first.hse, 2);
+    $('outYear4').textContent = fmt(y4.total, 2);
+
+    var bar = $('outBar').children;
+    var tot = Math.max(first.total + first.hse, 1);
+    bar[0].style.flexBasis = (100 * first.incomePart / tot) + '%';
+    bar[1].style.flexBasis = (100 * first.assetPart / tot) + '%';
+    bar[2].style.flexBasis = (100 * first.hse / tot) + '%';
+
+    var keeps = base.pension + base.other - base.deduct - first.incomePart;
+    var keepTxt = fmt(Math.max(0, keeps), 2) + ' a week of income stays with him (' + (state.couple ? '60%' : '20%') + ' of assessable income) for extras and personal spending.';
+    if (first.selfFunding) keepTxt = 'His assessed contribution exceeds the price of the home, so he would be self‑funding at this price and Fair Deal would pay nothing. The income kept is ' + fmt(Math.max(0, keeps), 2) + ' a week.';
+    $('outKeepsText').textContent = keepTxt;
+
+    // Year by year
+    var tbody = $('outTable').querySelector('tbody');
+    tbody.innerHTML = '';
+    var cumDad = 0, cumDeferred = 0, cumHSE = 0, cumIncome = 0, cumAssetsNow = 0;
+    for (var y = 1; y <= years; y++) {
+      var homeIn = !alreadyCapped && y <= 3;
+      var r = assess(Object.assign({}, base, { homeCounted: homeIn }));
+      var deferred = loan ? (r.homePart + r.propPart) * 52 : 0;
+      var assetsNow = r.assetPart * 52 - deferred;
+      var inc = r.incomePart * 52, hse = r.hse * 52;
+      cumIncome += inc; cumAssetsNow += assetsNow; cumDeferred += deferred; cumHSE += hse; cumDad += inc + assetsNow;
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td>Year ' + y + (homeIn ? '' : (alreadyCapped ? '' : ' <span style="color:var(--fg-3)">(home dropped)</span>')) + '</td>' +
+        '<td class="n">' + fmt(inc) + '</td><td class="n">' + fmt(assetsNow) + '</td><td class="n">' + (loan ? fmt(deferred) : '—') + '</td><td class="n">' + fmt(hse) + '</td><td class="n">' + fmt(cumDad) + '</td>';
+      tbody.appendChild(tr);
+    }
+    var trT = document.createElement('tr'); trT.className = 'total';
+    trT.innerHTML = '<td>Total, ' + years + ' yrs</td><td class="n">' + fmt(cumIncome) + '</td><td class="n">' + fmt(cumAssetsNow) + '</td><td class="n">' + (loan ? fmt(cumDeferred) : '—') + '</td><td class="n">' + fmt(cumHSE) + '</td><td class="n">' + fmt(cumDad) + '</td>';
+    tbody.appendChild(trT);
+
+    var privateTotal = base.price * 52 * years;
+    var allIn = cumDad + cumDeferred;
+    var txt = '<b>Compared with paying privately:</b> ' + years + ' years at ' + fmt(base.price) + ' a week would cost ' + fmt(privateTotal) +
+      '. Under Fair Deal, Dad pays ' + fmt(cumDad) + ' from income and assets as he goes' +
+      (loan ? ', a further ' + fmt(cumDeferred) + ' is deferred against the house (plus CPI uplift) and settled by the estate' : '') +
+      ', and the HSE pays ' + fmt(cumHSE) + '. The State covers ' + Math.round(100 * cumHSE / Math.max(1, privateTotal)) + '% of the bill.';
+    if (loan && cumDeferred > 0) txt += ' The deferred amount is capped by the 3‑year rule at ' + fmt(base.home * (state.couple ? 0.1125 : 0.225)) + ' for the house itself.';
+    $('outPrivate').innerHTML = txt;
+  }
+  update();
+
+  /* ---------- Scenario comparison: self-fund vs Fair Deal vs Fair Deal + loan ---------- */
+  var WK = 52 / 12; // weeks per month
+  // Pure function. Returns per-option results for a horizon in months. Exposed for checking.
+  function scenarios(p) {
+    var feeM = p.fee * WK, extrasM = p.extras * WK, fdM = p.fd * WK, houseM = p.houseLine * WK;
+    var loanCashM = Math.max(0, p.fd - p.houseLine) * WK;
+    var hseM = Math.max(0, p.fee - p.fd) * WK;
+    var incomeM = p.pension + 3 * p.sib;
+    var cpiM = Math.pow(1 + p.cpi / 100, 1 / 12) - 1;
+    function run(costFn, deferFn) {
+      var sav = p.savings, deferred = 0, hse = 0, runOut = null, sibs = 0;
+      for (var m = 1; m <= p.months; m++) {
+        var net = incomeM - costFn(m);
+        sav += net; sibs += 3 * p.sib;
+        deferred = deferred * (1 + cpiM) + deferFn(m);
+        hse += (costFn.isFD ? hseM : 0);
+        if (runOut === null && sav < 0) runOut = m;
+      }
+      return { savingsLeft: sav, cashFromFamily: Math.max(0, p.savings - sav), deferred: deferred, hse: hse, runOut: runOut, sibs: sibs, monthlyNet: incomeM - costFn(1), monthlyNetLate: incomeM - costFn(37) };
+    }
+    var A = function (m) { return feeM + extrasM + p.mum; };
+    var B = function (m) { return (m <= 36 ? fdM : loanCashM) + extrasM + p.mum; }; B.isFD = true;
+    var C = function (m) { return loanCashM + extrasM + p.mum; }; C.isFD = true;
+    var zero = function () { return 0; };
+    var defer = function (m) { return m <= 36 ? houseM : 0; };
+    return { selfFund: run(A, zero), fairDeal: run(B, zero), fairDealLoan: run(C, defer), hseM: hseM, monthly: { A: A(1), B: B(1), B4: B(37), C: C(1) }, incomeM: incomeM };
+  }
+  window.fairDealScenarios = scenarios;
+
+  var sc = { sib: 0 };
+  Array.prototype.slice.call(document.querySelectorAll('#scForm [data-sib]')).forEach(function (b) {
+    b.addEventListener('click', function () {
+      sc.sib = parseInt(b.dataset.sib, 10);
+      Array.prototype.slice.call(document.querySelectorAll('#scForm [data-sib]')).forEach(function (o) { o.setAttribute('aria-pressed', o === b ? 'true' : 'false'); });
+      updateScenarios();
+    });
+  });
+  ['scFee', 'scExtras', 'scMum', 'scPension', 'scSavings', 'scFD', 'scHouseLine', 'scCPI'].forEach(function (id) { $(id).addEventListener('input', updateScenarios); });
+
+  function money(n) { return (n < 0 ? '−' : '') + fmt(Math.abs(n)); }
+
+  function updateScenarios() {
+    var base = { fee: num('scFee'), extras: num('scExtras'), mum: num('scMum'), pension: num('scPension'), savings: num('scSavings'), fd: num('scFD'), houseLine: num('scHouseLine'), cpi: num('scCPI'), sib: sc.sib };
+    var horizons = [{ m: 6, l: '6 months' }, { m: 12, l: '1 year' }, { m: 24, l: '2 years' }, { m: 60, l: '5 years' }];
+    var head = scenarios(Object.assign({}, base, { months: 1 }));
+
+    // Monthly tiles
+    var tiles = [
+      { k: 'Self‑fund', v: head.incomeM - head.monthly.A },
+      { k: 'Fair Deal, no loan (yrs 1–3)', v: head.incomeM - head.monthly.B },
+      { k: 'Fair Deal + loan', v: head.incomeM - head.monthly.C },
+      { k: 'Any Fair Deal option, year 4+', v: head.incomeM - head.monthly.B4 }
+    ];
+    $('scMonthly').innerHTML = tiles.map(function (t) {
+      var neg = t.v < 0;
+      return '<div class="tile"><b class="num" style="color:' + (neg ? 'var(--s2)' : 'var(--accent)') + '">' + money(t.v) + '</b><span>' + t.k + ', household per month</span></div>';
+    }).join('');
+
+    // Table: rows = options, columns = horizons, each cell shows cash from family / charge on house
+    var opts = [['Self‑fund at €' + base.fee.toLocaleString('en-IE') + '/wk', 'selfFund'], ['Fair Deal, pay the house line in cash', 'fairDeal'], ['Fair Deal with Nursing Home Loan', 'fairDealLoan']];
+    var thead = '<tr><th>Option</th>' + horizons.map(function (h) { return '<th class="n">' + h.l + '</th>'; }).join('') + '</tr>';
+    $('scTable').querySelector('thead').innerHTML = thead;
+    var rows = opts.map(function (o) {
+      var cells = horizons.map(function (h) {
+        var r = scenarios(Object.assign({}, base, { months: h.m }))[o[1]];
+        var s = '<div><span style="color:var(--fg-3);font-size:0.72rem">cash</span> ' + fmt(r.cashFromFamily) + '</div>';
+        if (r.deferred > 0) s += '<div><span style="color:var(--fg-3);font-size:0.72rem">house</span> ' + fmt(r.deferred) + '</div>';
+        s += '<div style="color:' + (r.savingsLeft < 0 ? 'var(--s2)' : 'var(--fg-3)') + ';font-size:0.75rem">' + (r.savingsLeft < 0 ? 'short by ' + fmt(-r.savingsLeft) : 'savings left ' + fmt(r.savingsLeft)) + '</div>';
+        if (r.hse > 0) s += '<div style="color:var(--fg-3);font-size:0.72rem">HSE paid ' + fmt(r.hse) + '</div>';
+        return '<td class="n" style="line-height:1.35">' + s + '</td>';
+      }).join('');
+      return '<tr><td>' + o[0] + '</td>' + cells + '</tr>';
+    });
+    $('scTable').querySelector('tbody').innerHTML = rows.join('');
+
+    // Verdict
+    var five = scenarios(Object.assign({}, base, { months: 60 }));
+    var two = scenarios(Object.assign({}, base, { months: 24 }));
+    var subsidyWk = Math.max(0, base.fee - base.fd);
+    var v = '<b>Verdict:</b> Fair Deal beats self‑funding at every horizon by the HSE top‑up of ' + fmt(subsidyWk, 2) + ' a week (' + fmt(five.fairDeal.hse) + ' over 5 years), and the contribution is the same whichever approved home he is in. ';
+    v += 'Between the two Fair Deal routes the total cost to the family is almost identical in years 1 to 3; the loan only moves the house line (' + fmt(base.houseLine, 2) + '/wk, at most ' + fmt(base.houseLine * 156) + ' plus CPI) from Mum\'s monthly cash flow to a charge on the house that is repaid by the estate, and not while Mum still lives there. ';
+    var netC = head.incomeM - head.monthly.C, netB = head.incomeM - head.monthly.B;
+    if (netC >= -500 && netB < -1500) v += 'With the loan the household roughly breaks even (' + money(netC) + ' a month), so the €' + base.savings.toLocaleString('en-IE') + ' stays intact as Mum\'s reserve. Without it the household is ' + money(netB) + ' a month and the savings run out in month ' + (two.fairDeal.runOut || five.fairDeal.runOut || '60+') + '.';
+    else v += 'With the loan the household is ' + money(netC) + ' a month; without it ' + money(netB) + ' a month.';
+    $('scVerdict').innerHTML = v;
+
+    // Sibling note
+    var s1 = scenarios(Object.assign({}, base, { sib: 1000, months: 60 })), s2 = scenarios(Object.assign({}, base, { sib: 2000, months: 60 }));
+    var needNoLoan = Math.max(0, -(head.incomeM - 3 * base.sib - head.monthly.B)) / 3;
+    var needSelf = Math.max(0, -(head.incomeM - 3 * base.sib - head.monthly.A)) / 3;
+    var sTxt = '<b>Sibling contributions:</b> to hold the savings level, each of the three of you would need to put in about ' + fmt(needNoLoan) + ' a month under Fair Deal without the loan, or ' + fmt(needSelf) + ' a month if self‑funding. ';
+    sTxt += 'Paying ' + fmt(1000) + ' each a month instead of taking the loan means ' + fmt(s1.fairDeal.sibs) + ' of your own money over 5 years to avoid a charge on the house of about ' + fmt(five.fairDealLoan.deferred) + '. The loan costs only CPI, is repaid from the sale proceeds, and can be cleared early at any time, so sibling money is better held back for the extras, for Mum, or for year 4 onwards. ';
+    sTxt += 'Payments for a parent\'s care can qualify for the Capital Acquisitions Tax exemption for support of a dependent relative; confirm with an accountant before setting up standing orders.';
+    $('scSiblings').innerHTML = sTxt;
+  }
+  updateScenarios();
+
+  /* ---------- County dot plot ---------- */
+  var counties = [
+    ['Dublin', 1411], ['Kildare', 1337], ['Sligo', 1333], ['Wicklow', 1333], ['Meath', 1310], ['Cork', 1303],
+    ['Louth', 1292], ['Laois', 1284], ['Cavan', 1283], ['Waterford', 1283], ['Monaghan', 1279], ['Longford', 1276],
+    ['Tipperary', 1268], ['Wexford', 1265], ['Kilkenny', 1264], ['Mayo', 1262], ['Carlow', 1256], ['Clare', 1255],
+    ['Galway', 1254], ['Limerick', 1254], ['Offaly', 1249], ['Donegal', 1247], ['Kerry', 1243], ['Roscommon', 1233],
+    ['Westmeath', 1229], ['Leitrim', 1223]
+  ];
+  var NATIONAL = 1306;
+  (function drawChart() {
+    var host = $('countyChart');
+    var W = 760, rowH = 22, padL = 96, padR = 70, padT = 22, padB = 28;
+    var H = padT + counties.length * rowH + padB;
+    var min = 1200, max = 1450;
+    var x = function (v) { return padL + (v - min) / (max - min) * (W - padL - padR); };
+    var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Average weekly private nursing home price by county, dot plot">';
+    // grid + ticks
+    for (var t = min; t <= max; t += 50) {
+      s += '<line class="grid" x1="' + x(t) + '" x2="' + x(t) + '" y1="' + (padT - 6) + '" y2="' + (H - padB + 4) + '"/>';
+      s += '<text class="tick" x="' + x(t) + '" y="' + (H - padB + 16) + '" text-anchor="middle">€' + t.toLocaleString('en-IE') + '</text>';
+    }
+    // national reference
+    s += '<line class="ref" x1="' + x(NATIONAL) + '" x2="' + x(NATIONAL) + '" y1="' + (padT - 10) + '" y2="' + (H - padB + 4) + '"/>';
+    s += '<text class="reflbl" x="' + (x(NATIONAL) + 4) + '" y="' + (padT - 10) + '">National avg €1,306</text>';
+    counties.forEach(function (c, i) {
+      var cy = padT + i * rowH + rowH / 2;
+      var hi = c[0] === 'Dublin';
+      s += '<g class="row" data-name="' + c[0] + '" data-val="' + c[1] + '">';
+      s += '<text class="lbl" x="' + (padL - 10) + '" y="' + (cy + 4) + '" text-anchor="end"' + (hi ? ' font-weight="600"' : '') + '>' + c[0] + '</text>';
+      s += '<line class="grid" x1="' + padL + '" x2="' + x(c[1]) + '" y1="' + cy + '" y2="' + cy + '" opacity="0.6"/>';
+      s += '<circle class="dot' + (hi ? ' hi' : '') + '" cx="' + x(c[1]) + '" cy="' + cy + '" r="5.5"/>';
+      s += '<text class="val" x="' + (x(c[1]) + 10) + '" y="' + (cy + 4) + '">€' + c[1].toLocaleString('en-IE') + '</text>';
+      s += '<rect class="hit" x="' + padL + '" y="' + (cy - rowH / 2) + '" width="' + (W - padL) + '" height="' + rowH + '"/>';
+      s += '</g>';
+    });
+    s += '</svg><div class="tip" id="chartTip"></div>';
+    host.innerHTML = s;
+    var tip = $('chartTip');
+    host.addEventListener('mousemove', function (e) {
+      var row = e.target.closest ? e.target.closest('.row') : null;
+      if (!row) { tip.classList.remove('show'); return; }
+      var rect = host.getBoundingClientRect();
+      var v = parseInt(row.dataset.val, 10);
+      tip.textContent = row.dataset.name + ': €' + v.toLocaleString('en-IE') + '/wk · ' + (v >= NATIONAL ? '+' : '−') + '€' + Math.abs(v - NATIONAL) + ' vs national';
+      tip.style.left = (e.clientX - rect.left) + 'px';
+      tip.style.top = (e.clientY - rect.top) + 'px';
+      tip.classList.add('show');
+    });
+    host.addEventListener('mouseleave', function () { tip.classList.remove('show'); });
+  })();
+})();
+</script>
+
+</body>
+</html>
